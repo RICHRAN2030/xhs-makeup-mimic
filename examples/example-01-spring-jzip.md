@@ -1,6 +1,7 @@
 # 示例 1 ｜ 输入"明天，春日日杂感"
 
 > 输入：仅日期 + 1 句话想法。Skill 自动补全风格主线 / 人物 / 受众。
+> 图片提示词面向 **Nano Banana 2 / GPT-image-2**，JSON 结构化中文。
 
 ## 用户输入
 ```
@@ -19,80 +20,198 @@
 - 钱钩子：无
 - 节日 / 季节钩子：春日
 
-## 👤 Persona Lock Card
+## 👤 Persona Lock Card（人物锁卡）
 
-```yaml
-persona_id: P-002 (圆圆 ｜ 方圆脸日杂款)
-age: 22
-gender: female
-ethnicity_visual: East Asian (Japanese aesthetic)
-face_shape: round
-face_length: short
-eye_shape: inner-double
-eye_distance: average
-nose: low bridge, button tip
-lip: full, slight heart shape
-chin: rounded
-skin_tone: warm fair
-skin_texture: smooth with very light freckles
-hair_color: chocolate brown
-hair_style: shoulder length wavy with side parting
-distinctive: 婴儿肥，下颌线柔和，有元气感
-reference_strategy: Midjourney --cref --cw100
-seed: 82045
+```json
+{
+  "锁卡编号": "P-002",
+  "锁卡名": "圆圆 ｜ 方圆脸日杂款",
+  "14项特征": {
+    "年龄": 22,
+    "性别": "女",
+    "族裔感": "东亚 / 日系氛围",
+    "脸型": "方圆脸 / 短脸",
+    "眼型": "内双",
+    "眼距": "适中",
+    "鼻型": "低鼻梁 + 小巧鼻头",
+    "唇型": "饱满 + 微心形",
+    "下巴": "圆润",
+    "肤色": "暖调白皙",
+    "肤质": "光滑细腻 + 淡淡雀斑",
+    "发型": "巧克力棕色齐肩微卷 + 中分",
+    "辨识度": "婴儿肥，下颌线柔和，元气感"
+  },
+  "推荐工具": "Nano Banana 2 一次多图模式",
+  "参考图路径": "无（使用内置 P-002 人物库）"
+}
 ```
 
 ## 🖼️ 3 张图提示词
 
 ### 图 1 ｜ 主图 / 封面
 
-```
-22-year-old East Asian female, round face shape, short face length, inner-double eyes, 
-low button nose, full slightly heart-shaped lips, rounded chin, warm fair skin with 
-very light freckles, chocolate brown shoulder-length wavy hair with side parting, 
-soft baby fat, gentle relaxed expression, 45-degree side profile portrait.
-Makeup focus: natural Japanese magazine "日杂" style — coral-pink under-eye 
-highlight, matte cherry-tinted lips, peachy blush swept low on cheekbones, 
-nearly invisible eyeliner with mascara only.
-Lighting: soft natural daylight from window, warm white balance, no harsh shadows.
-Background: off-white with subtle wooden grain bokeh.
-Composition: subject 75% of frame, gentle negative space upper-right.
-Style: realistic editorial magazine portrait, soft retouch, ViVi magazine cover quality, 
-skin pores visible.
-Sticker: small Emoji 🌸 at top-right corner; tiny white thin-stroke Chinese 
-caption "都匀约妆" at bottom-right.
-Negative: plastic skin, over-smoothed, asymmetric eyes, anime cartoon look.
---ar 2:3 --style raw --seed 82045
+```json
+{
+  "图片编号": "IMG-01-主图",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物锁": {
+    "年龄": 22,
+    "性别": "女",
+    "族裔感": "东亚 / 日系氛围",
+    "脸型": "方圆脸 / 短脸",
+    "眼型": "内双",
+    "眼距": "适中",
+    "鼻型": "低鼻梁 + 小巧鼻头",
+    "唇型": "饱满 + 微心形",
+    "下巴": "圆润",
+    "肤色": "暖调白皙",
+    "肤质": "光滑细腻 + 淡淡雀斑",
+    "发型": "巧克力棕色齐肩微卷 + 中分",
+    "辨识度": "婴儿肥 / 下颌线柔和 / 元气感"
+  },
+  "姿态": {
+    "角度": "45 度侧脸肖像",
+    "视线": "斜视镜头外右上方",
+    "表情": "淡淡微笑，眼神温柔放松"
+  },
+  "妆容": {
+    "风格": "日杂樱花妹 / 春日通透",
+    "眼妆": "粉橘色卧蚕高光打在泪沟 + 暖棕雾感眼影铺色 + 仅上睫毛 mascara curl + 几乎不见眼线",
+    "唇": "樱花粉雾面咬唇，唇珠中央叠少量高光",
+    "腮红": "杏粉色低位斜扫颧骨下方，不打苹果肌",
+    "底妆": "通透感裸光底妆，毛孔可见 + 保留淡雀斑质感"
+  },
+  "灯光": {
+    "主光": "自然柔和日光从窗户射入",
+    "辅光": "侧面环境光柔补",
+    "色温": "暖白 warm white balance",
+    "阴影": "柔和无硬阴影"
+  },
+  "背景": {
+    "类型": "室内自然",
+    "色彩": "米白色 + 木纹柔焦",
+    "虚化": "适度虚化"
+  },
+  "构图": {
+    "景别": "胸像特写",
+    "主体占比": "75%",
+    "留白": "右上方负空间"
+  },
+  "风格": {
+    "类型": "杂志写真 / ViVi 杂志封面感",
+    "渲染": "真实感人像 / 轻磨皮 / 毛孔与雀斑可见",
+    "氛围词": "原生透明感 + 元气樱花妹"
+  },
+  "装饰叠层": {
+    "Emoji贴纸": "右上角 🌸",
+    "文字水印": "右下角白色细体小字 '都匀约妆'"
+  },
+  "画质标签": ["8K", "杂志封面级", "锐利细节", "光线柔美"],
+  "禁止出现": [
+    "塑料感",
+    "过度磨皮",
+    "动漫卡通",
+    "妆容溢出皮肤",
+    "鼻型变形",
+    "不对称五官",
+    "厚妆压脸感"
+  ]
+}
 ```
 
-### 图 2 ｜ 细节特写（眼妆 + 卧蚕高光）
+### 图 2 ｜ 细节特写（眼妆 + 卧蚕粉橘）
 
-```
-SAME MODEL as Image 1, identical face structure, identical 22-year-old features.
-Tight close-up on left eye area, inner-double eye shape clearly visible.
-Detail: coral-pink under-eye highlight on cheek tear-trough, soft warm brown 
-matte shadow on upper lid, mascara curl, no eyeliner.
-Gaze: looking down-left, soft eyelids.
-Depth: shallow depth of field, surrounding face slightly out of focus.
-Lighting: same warm daylight as Image 1.
-Color continuity: warm translucent.
-Negative: no different eye shape, no extra makeup elements, no plastic skin.
---ar 2:3 --style raw --cref <PLACEHOLDER_IMG1_URL> --cw 100 --seed 82045
+```json
+{
+  "图片编号": "IMG-02-细节",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "使用与图 1 完全相同的模特：相同方圆脸、相同内双眼型、相同低鼻梁、相同饱满唇、相同暖调白皙肤色、相同巧克力棕齐肩微卷。不要改变任何面部结构。",
+  "人物锁": {
+    "年龄": 22,
+    "性别": "女",
+    "族裔感": "东亚 / 日系氛围",
+    "脸型": "方圆脸 / 短脸",
+    "眼型": "内双",
+    "眼距": "适中",
+    "鼻型": "低鼻梁 + 小巧鼻头",
+    "唇型": "饱满 + 微心形",
+    "下巴": "圆润",
+    "肤色": "暖调白皙",
+    "肤质": "光滑细腻 + 淡淡雀斑",
+    "发型": "巧克力棕色齐肩微卷 + 中分",
+    "辨识度": "婴儿肥 / 下颌线柔和 / 元气感"
+  },
+  "裁切": "紧密特写于左眼区域，内双眼型清晰可见",
+  "焦点细节": {
+    "对象": "眼下卧蚕粉橘高光 + 暖棕过渡眼影 + 仅 mascara curl",
+    "色彩": "粉橘香蕉型高光打在泪沟 0.5cm 处 + 暖棕雾面眼影铺色",
+    "质感": "shimmer 卧蚕 + matte 眼影 + 自然睫毛",
+    "技法": "卧蚕高光区域不超过眼下 0.5cm，避免显老气"
+  },
+  "视线": "向下看略带害羞",
+  "景深": "浅景深，焦点之外的脸部柔虚化",
+  "灯光": "与图 1 同自然窗光，暖白色温",
+  "色彩连贯": "与图 1 同暖通透色调",
+  "构图": "焦点细节占画面 90%",
+  "禁止出现": [
+    "与图 1 不同的眼型",
+    "外双眼皮",
+    "夸张眼线",
+    "卧蚕高光过宽",
+    "塑料感皮肤"
+  ]
+}
 ```
 
 ### 图 3 ｜ 上身场景（咖啡馆窗边）
 
-```
-SAME MODEL as Image 1.
-Half-body shot, sitting casually at a café window seat, warm spring afternoon light, 
-hands holding a latte cup.
-Outfit: cream colored knit pullover with high neck (color tone matching Image 1).
-Makeup: identical to Image 1 close-up (coral under-eye + cherry lip + peachy blush).
-Background: blurred café window with cherry blossom branches outside, soft bokeh.
-Lighting: golden hour natural light from window.
-Atmosphere: 原生通透感 + 樱花妹日杂 + spring vibe.
-Negative: no different face, no different outfit color, no body proportion issues.
---ar 2:3 --style raw --cref <PLACEHOLDER_IMG1_URL> --cw 80 --seed 82045
+```json
+{
+  "图片编号": "IMG-03-上身",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "使用与图 1 同一位模特，相同 14 项特征，相同妆容。如果出现与图 1 不同人物，视为失败。",
+  "人物锁": {
+    "年龄": 22,
+    "性别": "女",
+    "族裔感": "东亚 / 日系氛围",
+    "脸型": "方圆脸 / 短脸",
+    "眼型": "内双",
+    "眼距": "适中",
+    "鼻型": "低鼻梁 + 小巧鼻头",
+    "唇型": "饱满 + 微心形",
+    "下巴": "圆润",
+    "肤色": "暖调白皙",
+    "肤质": "光滑细腻 + 淡淡雀斑",
+    "发型": "巧克力棕色齐肩微卷 + 中分",
+    "辨识度": "婴儿肥 / 下颌线柔和 / 元气感"
+  },
+  "景别": "半身像",
+  "姿态": "自然坐姿，倚靠咖啡馆窗边，双手轻握拿铁杯",
+  "场景": "咖啡馆窗边，窗外有樱花树枝柔焦虚化",
+  "服装": {
+    "色系": "奶油白 / 浅米色",
+    "款式": "高领针织衫",
+    "材质": "细针柔软针织"
+  },
+  "妆容": "与图 1 完全一致 (粉橘卧蚕 + 樱花粉咬唇 + 杏粉腮红)",
+  "光线": "黄金时刻自然光从窗户进入，温暖暖白色温",
+  "背景": {
+    "环境": "咖啡馆窗户 + 窗外樱花树枝",
+    "虚化": "强虚化，浅景深柔焦 bokeh"
+  },
+  "氛围": "原生透明感 + 樱花妹日杂 + 春日 vibe + 慵懒日常",
+  "禁止出现": [
+    "与图 1 不同的脸",
+    "服装色系冲突 (避免黑色 / 深色)",
+    "身体比例异常",
+    "手指畸形",
+    "多余肢体",
+    "塑料感咖啡杯"
+  ]
+}
 ```
 
 ## 🏷️ 3 版标题
@@ -144,8 +263,33 @@ Negative: no different face, no different outfit color, no body proportion issue
 ```
 
 ## ✅ 自检
-- [x] 3 张图 2:3
-- [x] 人物锁卡 cref + seed 一致
+- [x] 3 张图 JSON 都写明"画面比例: 竖向 2:3"
+- [x] 3 张图 14 项特征完整复制（不省略）
+- [x] 图 2 / 图 3 含"人物一致性指令"字段
 - [x] 标题 14-18 字含 Emoji + 地域 + 风格
 - [x] 正文 92/122/148 字均含客户故事 + 产品名 + 价格信号
 - [x] 跨州转化"黔南州内同城可上门"
+- [x] 未混入 Midjourney `--cref` 等参数
+
+## 🚀 使用方法
+
+### Nano Banana 2 一次多图（推荐）
+
+把以下指令 + 3 段 JSON 一次粘进 Nano Banana 2 输入框：
+
+```
+请生成 3 张图片，全部使用同一位模特。模特的面部结构、五官、肤色、
+发型 14 项特征必须严格一致。第一张为主图，后两张以第一张为视觉参考。
+画面比例全部为竖向 2:3。
+
+[图 1 IMG-01 JSON]
+[图 2 IMG-02 JSON]
+[图 3 IMG-03 JSON]
+```
+
+### GPT-image-2 分步连续生成
+
+在 ChatGPT 同一对话里：
+1. 第一条消息：直接粘 IMG-01 JSON → 等图 1 生成
+2. 第二条消息：开头加"使用上方图片中的同一位模特" + 粘 IMG-02 JSON
+3. 第三条消息：开头加"使用图 1 中的同一位模特" + 粘 IMG-03 JSON

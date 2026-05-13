@@ -1,6 +1,7 @@
 # 示例 2 ｜ 输入"单眼皮韩系小猫妆 + 参考图"
 
 > 输入：明确风格 + 提供参考图。Skill 用参考图作人物锚（模式 1）。
+> 图片提示词面向 **Nano Banana 2 / GPT-image-2**，JSON 结构化中文。
 
 ## 用户输入
 ```
@@ -19,88 +20,207 @@
 - 钱钩子：无
 - 节日 / 季节钩子：无（常规客返笔记）
 
-## 👤 Persona Lock Card
+## 👤 Persona Lock Card（人物锁卡）
 
-```yaml
-persona_id: P-001 (阿茶 ｜ 单眼皮淡颜韩系款)  # 基于用户参考图识别
-age: 25
-gender: female
-ethnicity_visual: East Asian
-face_shape: oval
-face_length: medium
-eye_shape: mono-lid                           # ← 从参考图确认
-eye_distance: average
-nose: straight, medium bridge
-lip: thin, defined cupid-bow
-chin: rounded
-skin_tone: cool fair
-skin_texture: smooth
-hair_color: dark brown
-hair_style: straight long with curtain bangs   # ← 从参考图确认
-distinctive: 左颊小痣，笑起来眼睛弯弯           # ← 从参考图确认
-reference_image: H:\客户照片\阿茶_约妆后.jpg
-reference_strategy: Midjourney --cref <upload_url> --cw 100
-seed: 49102
+```json
+{
+  "锁卡编号": "P-001",
+  "锁卡名": "阿茶 ｜ 单眼皮淡颜韩系款（基于用户参考图）",
+  "14项特征": {
+    "年龄": 25,
+    "性别": "女",
+    "族裔感": "东亚",
+    "脸型": "椭圆脸 / 中等长度",
+    "眼型": "单眼皮（参考图确认）",
+    "眼距": "适中",
+    "鼻型": "笔挺中等鼻梁",
+    "唇型": "薄唇 + 清晰唇珠",
+    "下巴": "圆润",
+    "肤色": "冷调白皙",
+    "肤质": "光滑细腻",
+    "发型": "深棕长直发 + 空气刘海（参考图确认）",
+    "辨识度": "左颊小痣 / 笑起来眼睛弯弯（参考图确认）"
+  },
+  "推荐工具": "Nano Banana 2 一次多图（推荐）/ GPT-image-2 上传参考图模式",
+  "参考图路径": "H:\\客户照片\\阿茶_约妆后.jpg"
+}
 ```
 
-> 用户参考图作 cref 主锚。需先把本地参考图上传到图床获取 URL（如 imgbb/PicGo/腾讯云 COS）。
+> 用户已提供参考图。两种推荐用法：
+> 1. **Nano Banana 2**：把参考图作为附件 + 一次性粘 3 段 JSON
+> 2. **GPT-image-2**：先上传参考图，每次生成时 prompt 开头加"以参考图中的模特为基准"
 
 ## 🖼️ 3 张图提示词
 
 ### 图 1 ｜ 主图 / 封面（45° 侧脸）
 
-```
-25-year-old East Asian female, oval face, medium length, mono-lid eyes, straight 
-medium-bridge nose, thin defined cupid-bow lips, rounded chin, cool fair skin, 
-dark brown straight long hair with curtain bangs, distinctive small mole on left 
-cheek, gentle smile with eyes slightly crinkled.
-45-degree side profile portrait.
-Makeup focus: Korean "small cat" makeup — winged eyeliner slightly upturned, 
-cool silver inner-corner shimmer, dark brown gradient shadow, milk-tea glossy 
-lip, peachy side-cheek blush.
-Lighting: studio softbox key light from above + soft fill, cool clean color grading.
-Background: light gray gradient, blurred.
-Composition: subject 80% of frame.
-Style: editorial Korean magazine portrait, slight retouch, skin pores visible, 
-NOT plastic.
-Sticker: small Emoji 🐈 at top-right; tiny white Chinese caption "都匀约妆" at 
-bottom-right corner.
-Negative: no different face, no over-smoothed skin, no anime cartoon look.
---ar 2:3 --style raw --cref <USER_REF_IMAGE_URL> --cw 100 --seed 49102
+```json
+{
+  "图片编号": "IMG-01-主图",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "参考图说明": "如果用户已上传 H:\\客户照片\\阿茶_约妆后.jpg 作参考图，请优先使用该模特的面部特征；否则按以下 14 项严格生成",
+  "人物锁": {
+    "年龄": 25,
+    "性别": "女",
+    "族裔感": "东亚",
+    "脸型": "椭圆脸 / 中等长度",
+    "眼型": "单眼皮（绝对不要画成双眼皮或内双）",
+    "眼距": "适中",
+    "鼻型": "笔挺中等鼻梁",
+    "唇型": "薄唇 + 清晰唇珠",
+    "下巴": "圆润",
+    "肤色": "冷调白皙",
+    "肤质": "光滑细腻",
+    "发型": "深棕长直发 + 空气刘海",
+    "辨识度": "左颊小痣 / 笑起来眼睛弯弯"
+  },
+  "姿态": {
+    "角度": "45 度侧脸肖像",
+    "视线": "斜视镜头外略向上",
+    "表情": "淡淡微笑，眼睛微微眯起"
+  },
+  "妆容": {
+    "风格": "韩系亚裔小猫妆",
+    "眼妆": "上扬眼线小尾 (尾部上挑 15°) + 冷调银色 inner-corner highlight (香蕉型卧蚕) + 深棕过渡 matte 眼影 + 只上睫毛 mascara curl",
+    "唇": "奶茶豆沙 glossy 润唇，唇珠中央叠少量高光",
+    "腮红": "杏粉色侧颊扫，不打苹果肌",
+    "底妆": "通透感裸光底妆，毛孔可见保留真实质感"
+  },
+  "灯光": {
+    "主光": "影棚柔光箱顶光",
+    "辅光": "侧面柔补光",
+    "色温": "冷调 cool clean",
+    "阴影": "柔和无硬阴影"
+  },
+  "背景": {
+    "类型": "影棚",
+    "色彩": "浅灰白渐变",
+    "虚化": "适度虚化"
+  },
+  "构图": {
+    "景别": "胸像特写",
+    "主体占比": "80%",
+    "留白": "右上方负空间"
+  },
+  "风格": {
+    "类型": "韩系杂志写真 / Editorial Korean magazine",
+    "渲染": "真实感人像 / 轻磨皮 / 毛孔可见",
+    "氛围词": "原生通透感 + 微醺野性"
+  },
+  "装饰叠层": {
+    "Emoji贴纸": "右上角 🐈",
+    "文字水印": "右下角白色细体小字 '都匀约妆'"
+  },
+  "画质标签": ["8K", "杂志封面级", "锐利细节"],
+  "禁止出现": [
+    "双眼皮 (锁卡为单眼皮)",
+    "内双 (锁卡为单眼皮)",
+    "塑料感",
+    "过度磨皮",
+    "动漫卡通",
+    "妆容溢出皮肤",
+    "不对称五官",
+    "鼻型变形"
+  ]
+}
 ```
 
 ### 图 2 ｜ 细节（眼妆 + 卧蚕银光）
 
-```
-SAME MODEL as Image 1, identical face structure, identical mono-lid eyes, 
-identical 25-year-old features, same dark brown hair with curtain bangs.
-Tight close-up on right eye area, mono-lid clearly visible.
-Detail: winged eyeliner upturned at outer corner, cool silver inner-corner 
-highlight (banana shape), dark brown gradient eyeshadow, mascara curl on 
-upper lashes only.
-Eyebrow: natural arch, slightly straight.
-Gaze: looking up-right with slight smile.
-Depth: shallow, surrounding face soft.
-Lighting: same studio softbox.
-Negative: no double-eyelid, no different eye shape, no extra makeup.
---ar 2:3 --style raw --cref <USER_REF_IMAGE_URL> --cw 100 --seed 49102
+```json
+{
+  "图片编号": "IMG-02-细节",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "使用与图 1 完全相同的模特：相同椭圆脸、相同单眼皮 (绝对不是双眼皮)、相同笔挺鼻梁、相同薄唇、相同冷调白皙肤色、相同深棕长直发 + 空气刘海。不要改变任何面部结构。",
+  "人物锁": {
+    "年龄": 25,
+    "性别": "女",
+    "族裔感": "东亚",
+    "脸型": "椭圆脸 / 中等长度",
+    "眼型": "单眼皮（绝对不要画成双眼皮）",
+    "眼距": "适中",
+    "鼻型": "笔挺中等鼻梁",
+    "唇型": "薄唇 + 清晰唇珠",
+    "下巴": "圆润",
+    "肤色": "冷调白皙",
+    "肤质": "光滑细腻",
+    "发型": "深棕长直发 + 空气刘海",
+    "辨识度": "左颊小痣 / 笑起来眼睛弯弯"
+  },
+  "裁切": "紧密特写于右眼区域，单眼皮清晰可见",
+  "焦点细节": {
+    "对象": "上扬眼线 + 冷调银色卧蚕高光 + 深棕过渡眼影",
+    "色彩": "银白 shimmer 香蕉型卧蚕高光打在眼下 0.3cm + 深棕雾面眼影从眼尾向眼头过渡",
+    "质感": "shimmer 卧蚕 + matte 眼影 + 自然睫毛",
+    "技法": "眼线只描眼尾后 1/3 段上扬，不描全段"
+  },
+  "眉毛": "自然眉峰，略微平直",
+  "视线": "向上右斜视，带淡淡微笑",
+  "景深": "浅景深，周围脸部柔虚化",
+  "灯光": "与图 1 同冷调影棚柔光箱",
+  "色彩连贯": "与图 1 同 cool clean 色调",
+  "禁止出现": [
+    "双眼皮",
+    "内双",
+    "与图 1 不同的眼型",
+    "夸张眼线 (全描眼线)",
+    "卧蚕银光过宽",
+    "塑料感皮肤",
+    "锁卡未约定的妆容元素"
+  ]
+}
 ```
 
 ### 图 3 ｜ 妆前妆后对比
 
-```
-SAME MODEL as Image 1.
-Split-frame layout, left = pre-makeup, right = post-makeup.
-Left (pre-makeup): bare-face mono-lid, neutral daylight, plain expression, no 
-makeup, slightly tired, identical 25-year-old face structure.
-Right (post-makeup): full Korean small-cat makeup as in Image 1, confident 
-smile with eyes slightly crinkled.
-Middle: thin vertical white divider line.
-Text overlay: large Emoji "换头‼️🐈" centered bottom, white thin-stroke.
-Lighting: cool clean, balanced both sides.
-Each half: half-body framing.
-Negative: no different face structure on either side.
---ar 2:3 --style raw --cref <USER_REF_IMAGE_URL> --cw 90 --seed 49102
+```json
+{
+  "图片编号": "IMG-03-对比",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "上下两半使用同一位模特，与图 1 同人物。左半为素颜，右半为妆后，但是同一张脸、同一个发型、同一个肤色基底。",
+  "人物锁": {
+    "年龄": 25,
+    "性别": "女",
+    "族裔感": "东亚",
+    "脸型": "椭圆脸 / 中等长度",
+    "眼型": "单眼皮（两半都必须是单眼皮）",
+    "眼距": "适中",
+    "鼻型": "笔挺中等鼻梁",
+    "唇型": "薄唇 + 清晰唇珠",
+    "下巴": "圆润",
+    "肤色": "冷调白皙",
+    "肤质": "光滑细腻",
+    "发型": "深棕长直发 + 空气刘海",
+    "辨识度": "左颊小痣 / 笑起来眼睛弯弯"
+  },
+  "布局": "竖向画面，上下二分格 (上半妆前 / 下半妆后)",
+  "上半_妆前": {
+    "状态": "素颜裸脸",
+    "光线": "自然日光",
+    "表情": "平淡无修饰，略显疲惫",
+    "妆容": "无任何妆容，左颊小痣清晰可见"
+  },
+  "下半_妆后": {
+    "状态": "完成妆面 (与图 1 一致)",
+    "光线": "影棚柔光箱冷调",
+    "表情": "自信微笑，眼睛微微眯起",
+    "妆容": "韩系小猫妆 — 上扬眼线 + 银光卧蚕 + 深棕眼影 + 奶茶豆沙唇 + 杏粉腮红"
+  },
+  "中央分隔": "细白色水平分隔线",
+  "文字叠层": "底部居中大 Emoji '换头‼️🐈'，白色细体描边",
+  "灯光连贯": "上下两半白平衡一致",
+  "景别": "每半为半身像",
+  "禁止出现": [
+    "上下两半脸型不一致",
+    "上下两半眼型不一致 (必须都是单眼皮)",
+    "妆前出现妆容元素",
+    "妆后变成双眼皮",
+    "比例失调"
+  ]
+}
 ```
 
 ## 🏷️ 3 版标题
@@ -155,13 +275,33 @@ Negative: no different face structure on either side.
 ```
 
 ## ✅ 自检
-- [x] 3 张图 2:3 + 用户参考图作 cref
-- [x] 人物锁卡基于用户图识别填写
+- [x] 3 张图 JSON 都写明竖向 2:3
+- [x] 14 项特征 + 单眼皮强调（不要画成双眼皮）完整复制
+- [x] 图 2 / 图 3 含"人物一致性指令"字段
 - [x] 标题 14-19 字含 🐈 / 🩵 Emoji
 - [x] 正文均含具体产品（NARS / Visee）+ 客户故事 + 价格信号
 - [x] 末尾跨州转化路径
 
-## 工具适配
-- **Midjourney**：把 `<USER_REF_IMAGE_URL>` 替换为参考图实际 URL（可先上传到 imgbb.com 获取）
-- **即梦/可灵**：在工具里直接上传参考图，参考强度 90-100，3 张图都用同一参考图
-- **本地参考图上传**：推荐 imgbb.com（免登录）或 GitHub Gist 存图
+## 🚀 使用方法
+
+### Nano Banana 2 一次多图 + 参考图（最稳）
+
+1. 把用户参考图 `H:\客户照片\阿茶_约妆后.jpg` 作为附件上传
+2. 输入框粘以下指令 + 3 段 JSON：
+
+```
+参考附件中的模特照片。请生成 3 张图片，全部使用这位模特，
+面部结构、五官、肤色、发型 14 项特征必须严格一致。
+画面比例全部为竖向 2:3。
+
+[图 1 IMG-01 JSON]
+[图 2 IMG-02 JSON]
+[图 3 IMG-03 JSON]
+```
+
+### GPT-image-2 上传参考图 + 分步生成
+
+1. 新对话 → 上传参考图 `阿茶_约妆后.jpg`
+2. 第一条消息：粘 IMG-01 JSON，开头加"基于上传图中的模特生成"
+3. 等图 1 完成后，第二条消息粘 IMG-02 JSON，开头加"使用上方图 1 中的同一位模特"
+4. 同理生成图 3

@@ -132,16 +132,19 @@ xhs-makeup-mimic/
 - 把图放在 `assets/custom-personas/`
 - 在请求里说"用我的小桃模特"
 
-## 兼容的出图工具
+## 兼容的出图工具（默认 GPT-image-2 + Nano Banana 2）
 
-| 工具 | 一致性参数 | 支持度 |
+| 工具 | 一致性机制 | 支持度 |
 |---|---|---|
-| Midjourney v6+ | `--cref + --cw 100 + --seed` | ⭐⭐⭐⭐⭐ |
+| **Nano Banana 2** (Gemini 3 Pro Image) | 原生多图角色一致性 + 一次 prompt 3 段 JSON | ⭐⭐⭐⭐⭐ |
+| **GPT-image-2** (ChatGPT 4o Image 升级版) | 对话连续模式 + 上传参考图 | ⭐⭐⭐⭐⭐ |
+| Midjourney v6.1+ | `--cref + --cw 100 + --seed`（需自行加参数）| ⭐⭐⭐⭐ |
 | 即梦（字节） | 参考图功能 + 强度 80-100 | ⭐⭐⭐⭐ |
 | 可灵 | 角色一致性选项 | ⭐⭐⭐⭐ |
 | Stable Diffusion | IP-Adapter + FaceID + 同 seed | ⭐⭐⭐⭐ |
-| DALL-E 3 / Sora | 引用前一张图 + 详细人物描述 | ⭐⭐⭐ |
-| 文心 / 通义 | 同 seed + 详细人物描述 | ⭐⭐ |
+| 文心 / 通义 | 同 seed + 详细人物描述 | ⭐⭐⭐ |
+
+> 默认输出 **JSON 中文结构化提示词**，面向 GPT-image-2 / Nano Banana 2。这种格式对新模型最稳，对中文用户最友好（你能直接看懂改任何一项）。其他平台需要自行去掉 / 加上对应参数。
 
 ## 风格 DNA 来源
 

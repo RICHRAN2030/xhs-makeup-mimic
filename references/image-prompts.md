@@ -1,168 +1,449 @@
-# 图片提示词模板 ｜ 3 张图同人物 2:3
+# 图片提示词模板 ｜ JSON 结构化 · 中文 · GPT-image-2 / Nano Banana 2
 
-> 本文档配合 `persona-anchor.md` 使用。先在 persona-anchor 建好「Persona Lock Card」，再用本文件的 3 张图模板填充。
+> 本文档配合 `persona-anchor.md` 使用。先在 persona-anchor 建好「Persona Lock Card」，再用本文件的 3 张图 JSON 模板填充。
+>
+> **为什么用 JSON 中文结构化**：GPT-image-2 和 Nano Banana 2 对结构化字段的理解远强于自然语言段落 — 它们被训练时见过大量 JSON 风格的多模态描述。同时中文字段名让用户能直接看懂并随手改任何一项。
 
-## 一、3 张图的角色分工（**严格遵守**）
+---
+
+## 一、3 张图的角色分工
 
 | 图 | 角色 | 占比 | 必备元素 |
 |---|---|---|---|
-| **图 1 主图 / 封面** | 钩流量 | 70-80% 画面 | 模特 45° 侧脸特写 + 完整妆面氛围 + 工作室柔光 |
+| **图 1 主图 / 封面** | 钩流量 | 70-80% 画面 | 模特 45° 侧脸特写 + 完整妆面氛围 + 影棚柔光 |
 | **图 2 细节 / 局部** | 种草 | 浅景深局部 | 眼妆 OR 唇妆 OR 卧蚕 OR 美瞳特写 |
-| **图 3 对比 / 上身** | 验证 | 双格 / 全身 | 妆前妆后双格 OR 模特半身出片场景 |
+| **图 3 对比 / 上身** | 验证 | 双格 / 半身 | 妆前妆后双格 OR 模特上身场景出片 |
 
-## 二、图 1 主图提示词模板
+---
+
+## 二、JSON 提示词通用结构（13 字段）
+
+每张图都用以下 13 个字段。**你可以自由删改任何一项**——字段名是中文的，模型能理解你的语义改动。
+
+```json
+{
+  "图片编号": "IMG-01-主图",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3 (小红书最佳)",
+  "人物锁": {
+    "锁卡编号": "P-001",
+    "年龄": 25,
+    "性别": "女",
+    "族裔感": "东亚",
+    "脸型": "椭圆脸 / 中等长度",
+    "眼型": "单眼皮 / 内双 / 外双",
+    "眼距": "适中 / 紧凑 / 宽距",
+    "鼻型": "笔挺中等鼻梁",
+    "唇型": "薄唇饱满唇珠",
+    "下巴": "圆润 / 尖 / 方",
+    "肤色": "冷调白皙",
+    "肤质": "光滑细腻",
+    "发型": "深棕长直发 + 空气刘海",
+    "辨识度": "左颊小痣，笑起来眼睛弯弯"
+  },
+  "姿态": {
+    "角度": "45 度侧脸",
+    "视线": "斜视镜头外右上方",
+    "表情": "淡淡微笑"
+  },
+  "妆容": {
+    "风格": "韩系亚裔小猫妆",
+    "眼妆": "上扬眼线 + 冷调银色眼头香蕉型高光 + 深棕过渡眼影 + 上睫毛根根分明",
+    "唇": "奶茶豆沙润唇 + 中央叠高光",
+    "腮红": "杏粉色侧颊斜扫，不打苹果肌",
+    "底妆": "通透感裸光，毛孔可见保留真实质感"
+  },
+  "灯光": {
+    "主光": "影棚柔光箱顶光",
+    "辅光": "侧面补光",
+    "色温": "冷调",
+    "阴影": "柔和无硬阴影"
+  },
+  "背景": {
+    "类型": "影棚纯色",
+    "色彩": "灰白渐变",
+    "虚化": "适度虚化"
+  },
+  "构图": {
+    "景别": "胸像特写",
+    "主体占比": "70-80%",
+    "留白": "右上方负空间"
+  },
+  "风格": {
+    "类型": "杂志写真 Editorial",
+    "渲染": "真实感人像 / 轻磨皮 / 保留皮肤纹理",
+    "氛围词": "原生通透感 + 微醺野性"
+  },
+  "装饰叠层": {
+    "Emoji贴纸": "右上角 🐈",
+    "文字水印": "右下角白色细体小字 '都匀约妆'"
+  },
+  "画质标签": ["8K", "杂志封面级", "锐利细节"],
+  "禁止出现": [
+    "塑料感皮肤",
+    "过度磨皮",
+    "双眼皮（如锁卡为单眼皮）",
+    "鼻型变形",
+    "不对称五官",
+    "夸张妆容",
+    "动漫风格",
+    "卡通",
+    "水印（除上方约定）",
+    "文字伪影"
+  ]
+}
+```
+
+---
+
+## 三、图 1 主图 / 封面 JSON 模板
+
+```json
+{
+  "图片编号": "IMG-01-主图",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物锁": "<从 Persona Lock Card 复制 14 项>",
+  "姿态": {
+    "角度": "45 度侧脸肖像",
+    "视线": "斜视镜头外右上方，略微下垂",
+    "表情": "淡淡微笑，肩膀自然放松"
+  },
+  "妆容": {
+    "风格": "<根据风格主线填，如 韩系亚裔 / 日杂 / 美式甜心>",
+    "眼妆": "<完整描述眼影色彩 + 眼线 + 卧蚕 + 睫毛>",
+    "唇": "<具体唇色 + 质地>",
+    "腮红": "<位置 + 色彩 + 力度>",
+    "底妆": "通透感裸光底妆，保留皮肤纹理"
+  },
+  "灯光": {
+    "主光": "影棚柔光箱顶光",
+    "辅光": "侧面柔补光",
+    "色温": "<冷调 cool / 暖调 warm / 中性>",
+    "阴影": "柔和无硬阴影"
+  },
+  "背景": {
+    "类型": "影棚",
+    "色彩": "<灰白渐变 / 米白 / 深棕 等>",
+    "虚化": "适度虚化"
+  },
+  "构图": {
+    "景别": "胸像特写",
+    "主体占比": "70-80%",
+    "留白": "右上方负空间"
+  },
+  "风格": {
+    "类型": "杂志写真 Editorial Portrait",
+    "渲染": "真实感人像 / 轻磨皮 / 毛孔可见",
+    "氛围词": "<原生通透感 / 樱花妹日杂 / 微醺野性>"
+  },
+  "装饰叠层": {
+    "Emoji贴纸": "右上角 <🌸 / 🩵 / 💖 / 🎀 / 🐈 / ✨>",
+    "文字水印": "右下角白色细体小字 '都匀约妆'"
+  },
+  "画质标签": ["8K", "杂志封面级", "锐利细节", "光线柔美"],
+  "禁止出现": [
+    "塑料感", "过度磨皮", "动漫", "卡通",
+    "不对称五官", "鼻型变形", "妆容溢出皮肤"
+  ]
+}
+```
+
+---
+
+## 四、图 2 细节 / 局部 JSON 模板
+
+```json
+{
+  "图片编号": "IMG-02-细节",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "使用与图 1 完全相同的模特：相同脸型、相同眼型、相同鼻型、相同唇型、相同肤色、相同发型。不要改变任何面部结构。",
+  "人物锁": "<同图 1 完整 14 项>",
+  "裁切": "紧密特写于 <左眼区域 / 右眼区域 / 唇部区域 / 颊部区域>",
+  "焦点细节": {
+    "对象": "<眼妆 / 唇 / 卧蚕 / 美瞳 选一>",
+    "色彩": "<具体色彩描述>",
+    "质感": "<glossy / matte / shimmer / 雾面 等>",
+    "技法": "<眼线上扬 / 卧蚕香蕉型 / 唇珠叠高光 等>"
+  },
+  "视线": "<向下 / 微闭 / 斜视镜头外 / 直视镜头>",
+  "景深": "浅景深，焦点之外的脸部柔虚化",
+  "灯光": "与图 1 同色温柔光箱，更具方向性以强化细节质感",
+  "色彩连贯": "与图 1 同色调氛围",
+  "构图": "焦点细节占画面 90%",
+  "禁止出现": [
+    "与图 1 不同的脸型",
+    "与图 1 不同的眼型",
+    "锁卡未约定的妆容元素",
+    "塑料感皮肤"
+  ]
+}
+```
+
+---
+
+## 五、图 3 对比 / 上身 JSON 模板（**二选一**）
+
+### 5A ｜ 妆前妆后对比（推荐主题 D 客户改造）
+
+```json
+{
+  "图片编号": "IMG-03-对比",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "左右两半使用同一位模特，与图 1 同人物。",
+  "人物锁": "<同图 1>",
+  "布局": "竖向画面，上下二分格 (或左右二分格，根据画面比例调)",
+  "上半_妆前": {
+    "状态": "素颜裸脸",
+    "光线": "自然日光",
+    "表情": "平淡无修饰，略显疲惫",
+    "妆容": "无任何妆容"
+  },
+  "下半_妆后": {
+    "状态": "完成妆面 (与图 1 一致)",
+    "光线": "影棚柔光箱",
+    "表情": "自信微笑",
+    "妆容": "<复制图 1 妆容描述>"
+  },
+  "中央分隔": "细白色水平分隔线",
+  "文字叠层": "底部居中大字 Emoji '换头‼️'，白色细体描边",
+  "灯光连贯": "白平衡两半统一",
+  "景别": "每半为半身像",
+  "禁止出现": [
+    "上下两半脸型不一致",
+    "比例失调",
+    "妆面元素错位"
+  ]
+}
+```
+
+### 5B ｜ 上身 / 场景出片（推荐主题 A 妆面 + B vlog）
+
+```json
+{
+  "图片编号": "IMG-03-上身",
+  "目标平台": "GPT-image-2 / Nano Banana 2",
+  "画面比例": "竖向 2:3",
+  "人物一致性指令": "使用与图 1 同一位模特，相同 14 项特征，相同妆容。",
+  "人物锁": "<同图 1>",
+  "景别": "半身像或 3/4 身像",
+  "姿态": "<自然站姿 / 坐姿 / 倚靠 / 走动瞬间>",
+  "场景": "<咖啡馆窗边 / 影棚镜面 / 城市街头柔焦 / 室内自然光>",
+  "服装": {
+    "色系": "<与图 1 相近，如同样白色高领 / 同样米色针织>",
+    "款式": "<具体描述>",
+    "材质": "<棉麻 / 针织 / 雪纺>"
+  },
+  "妆容": "与图 1 完全一致 (复制图 1 妆容字段)",
+  "光线": "<自然柔光 / 黄金时刻 / 室内暖光>",
+  "背景": {
+    "环境": "<具体场景>",
+    "虚化": "强虚化，浅景深柔焦"
+  },
+  "氛围": "<原生通透感 / 樱花妹日杂 / 微醺野性 / 千金气场>",
+  "禁止出现": [
+    "与图 1 不同的脸",
+    "与图 1 服装色系冲突",
+    "身体比例异常",
+    "手指畸形",
+    "多余肢体"
+  ]
+}
+```
+
+---
+
+## 六、风格 → 视觉参数对照表
+
+直接把以下值填进 JSON 的对应字段。
+
+| 风格主线 | 灯光 ｜ 主光 | 灯光 ｜ 色温 | 背景 ｜ 色彩 | 风格 ｜ 氛围词 | Emoji 贴纸 |
+|---|---|---|---|---|---|
+| **韩系亚裔** | 影棚柔光箱顶光 | 冷调 cool | 灰白渐变 | 原生通透感 + 微醺野性 | 🩵 🐈 |
+| **日杂 / 樱花妹** | 自然日光从窗户 | 暖白 warm | 米白 / 木纹柔焦 | 原生透明感 + 元气樱花妹 | 🌸 🫧 |
+| **美式甜心** | 黄金时刻自然光 | 暖饱和 | 奶油粉 / 暖米 | 甜美糯感 + 洋娃娃 | 🎀 💖 |
+| **泰式千金** | 低对比电影灯光 | 暖电影 | 深青绿 / 琥珀 | 冷冽气场 + 千金感 | 💐 🤎 |
+| **clean 通透** | 平光自然光 | 冷中性 | 纯白 | 干净 + 高级感 | 🤍 🫧 |
+| **厌世烟熏** | 硬轮廓光 | 去饱和冷调 | 深海军蓝 / 黑色柔焦 | 厌世 + 演唱会感 | 🔥 |
+
+---
+
+## 七、人物一致性 — GPT-image-2 / Nano Banana 2 实操
+
+### Nano Banana 2 (Gemini 3 Pro Image) — **首选**
+
+**原生多图一致性**：Nano Banana 2 训练时就内建了"同一角色多场景"能力，是目前对人物锁定最友好的模型。
+
+**操作方式**：
 
 ```text
-====== IMAGE 1 / Cover / 主图 ======
-{
-  Persona: <从 Lock Card 复制 15 项特征，浓缩为 1-2 句>,
-  Pose: 45-degree side profile portrait, looking slightly off-camera, gentle relaxed expression,
-  Makeup Focus: {主妆容元素 — 眼妆 / 唇 / 腮红 / 妆面整体},
-  Makeup Details: {具体色彩 — 如 deep brown shadow with cool silver inner-corner highlight + milk tea lip + peachy pink blush},
-  Lighting: soft key light from above + soft fill, studio softbox, no harsh shadows,
-  Color Grading: {冷调 cool clean / 暖调 warm cozy / 通透 translucent},
-  Background: light gray gradient OR off-white blurred studio backdrop,
-  Composition: subject occupies 70-80% of frame, subtle negative space upper-right,
-  Style: realistic editorial portrait, soft retouch, magazine cover quality, NOT overly smoothed,
-  Texture: skin pores visible but soft, no plastic look,
-  Sticker/Text Overlay: small white thin-stroke Chinese caption "都匀约妆" at bottom-right corner; small Emoji {🌸/🩵/💖/🎀/🐈/✨} sticker at top-right,
-  Negative: no over-saturated colors, no harsh shadows, no plastic skin, no asymmetric eyes, no extra fingers,
-}
---ar 2:3 --style raw --seed {SEED}
+方式 1：一次性多图生成（推荐）
+  在一个 prompt 里同时给出 3 张图的 JSON，开头加一段：
+
+  "请生成 3 张图片，全部使用同一位模特，
+   面部结构、五官、肤色、发型 14 项特征必须严格一致。
+   第一张为主图，后两张以第一张为视觉参考。"
+  
+  然后依次贴入图 1、图 2、图 3 的 JSON 模板。
+
+方式 2：分步生成 + 参考图（如果一次性失败）
+  第一步：单独喂图 1 JSON → 得到图 1
+  第二步：上传图 1 作为参考图 + 喂图 2 JSON，开头加：
+         "以上传图片中的模特为基准，生成图 2"
+  第三步：同理生成图 3
 ```
 
-## 三、图 2 细节提示词模板
+### GPT-image-2 (ChatGPT 4o Image 升级版)
+
+**实操方式**：
 
 ```text
-====== IMAGE 2 / Detail / 细节 ======
+方式 1：对话连续生成
+  在 ChatGPT 同一对话里，按顺序粘 3 张图的 JSON：
+  
+  第一条消息：粘图 1 JSON → 等 ChatGPT 生成图 1
+  第二条消息："使用上方图片中的同一位模特，生成下一张图" + 粘图 2 JSON
+  第三条消息：同样 reference 上方 + 粘图 3 JSON
+
+方式 2：参考图上传
+  - 把图 1 输出保存
+  - 在新对话里上传图 1 作参考
+  - "基于参考图中的模特，按以下 JSON 生成新图"
+```
+
+### 中文 prompt 注意事项
+
+- **GPT-image-2 / Nano Banana 2 都完全支持中文 prompt**，不需要翻译成英文
+- 关键名词（如妆容色彩、品牌名）可以保留原文不翻译
+- JSON 字段值用中文长句比 Midjourney 短词组更稳定
+- **不要混用 Midjourney 的 `--ar 2:3` `--cref` 参数** — 这两个平台不识别，会忽略或当噪声处理
+
+---
+
+## 八、Negative Prompt 通用清单
+
+GPT-image-2 / Nano Banana 2 都接受"禁止出现"字段 (negative prompt)。下面是通用清单：
+
+```json
+"禁止出现": [
+  "塑料感皮肤",
+  "过度磨皮",
+  "动漫风格",
+  "卡通形象",
+  "Q版 chibi",
+  "不对称五官",
+  "鼻型变形",
+  "脸型畸变",
+  "手指畸形 / 多余手指",
+  "额外肢体",
+  "妆容溢出皮肤边界",
+  "水印（除约定外）",
+  "文字伪影",
+  "AI 生成痕迹明显",
+  "镜头眩光过曝",
+  "皮肤蜡感",
+  "瞳孔异常",
+  "夸张腮红如老年妆",
+  "假牙感",
+  "假发感"
+]
+```
+
+---
+
+## 九、完整输出 — 3 张图 JSON 总模板
+
+每次生成笔记时，按此格式输出 3 张图：
+
+```json
 {
-  Persona Lock: SAME MODEL as Image 1, identical face structure, identical features. Use Image 1 as character reference.
-  Crop: tight close-up on {eye area / lip area / cheek area},
-  Focus Detail: {具体细节 — 如 winged eyeliner with cool silver inner-corner highlight + slightly upturned lash extensions / glossy milk-tea lip with subtle plumping highlight},
-  Eye Contact: {gaze direction — looking up-right / looking down / closed eyes},
-  Depth: shallow depth of field, surrounding face slightly out of focus,
-  Lighting: same studio softbox as Image 1, slightly more directional to emphasize detail texture,
-  Color Continuity: 与图 1 同色调,
-  Composition: tightly framed, 90% on the focal detail,
-  Negative: no different face structure, no different eye shape, no extra makeup elements not in Image 1,
+  "========": "PERSONA LOCK CARD ========",
+  "锁卡编号": "P-001",
+  "锁卡 14 项": {
+    "年龄": 25,
+    "性别": "女",
+    "族裔感": "东亚",
+    "脸型": "椭圆脸 / 中等长度",
+    "眼型": "单眼皮",
+    "眼距": "适中",
+    "鼻型": "笔挺中等鼻梁",
+    "唇型": "薄唇饱满唇珠",
+    "下巴": "圆润",
+    "肤色": "冷调白皙",
+    "肤质": "光滑细腻",
+    "发型": "深棕长直发 + 空气刘海",
+    "辨识度": "左颊小痣"
+  }
 }
---ar 2:3 --style raw --cref <IMAGE_1_URL> --cw 100 --seed {SEED}
 ```
 
-## 四、图 3 对比 / 场景提示词模板
-
-### 3A 妆前妆后对比（推荐主题 D 客户改造）
-
-```text
-====== IMAGE 3 / Before-After / 对比 ======
+```json
 {
-  Persona Lock: SAME MODEL as Image 1, identical face structure. Reference Image 1.
-  Layout: split-frame composition, left half = pre-makeup, right half = post-makeup,
-  Left (pre-makeup): natural bare face, neutral daylight, plain expression, slightly tired, identical face structure,
-  Right (post-makeup): full makeup as shown in Image 1, confident expression, studio softbox lighting,
-  Middle Divider: thin vertical white line,
-  Text Overlay: large Emoji "换头‼️" centered at the bottom, white thin-stroke,
-  Lighting Continuity: both sides match in white balance,
-  Composition: each half is half-body shot,
+  "图片编号": "IMG-01-主图",
+  ...完整 JSON 字段...
 }
---ar 2:3 --style raw --cref <IMAGE_1_URL> --cw 90 --seed {SEED}
 ```
 
-### 3B 上身 / 场景出片（推荐主题 A 妆面 + B vlog）
-
-```text
-====== IMAGE 3 / Lifestyle / 上身 ======
+```json
 {
-  Persona Lock: SAME MODEL as Image 1.
-  Shot Type: half-body or three-quarter body,
-  Pose: standing or sitting casually in a {curated scene — café window seat / studio mirror / city street softly blurred},
-  Outfit: {与图 1 服装色系相近，如同样白色高领 / 同样米色针织衫},
-  Makeup: identical to Image 1 close-up,
-  Background: contextual but blurred, light soft-focus bokeh,
-  Lighting: natural soft daylight OR cinematic golden hour,
-  Atmosphere: {风格氛围 — 原生通透感 / 樱花妹日杂 / 微醺野性},
-  Negative: no different face, no different outfit color, no body proportion issues,
+  "图片编号": "IMG-02-细节",
+  "人物一致性指令": "使用与图 1 完全相同的模特",
+  ...完整 JSON 字段...
 }
---ar 2:3 --style raw --cref <IMAGE_1_URL> --cw 80 --seed {SEED}
 ```
 
-## 五、风格 → 视觉参数对照表
-
-| 风格主线 | 色调 | 灯光 | 背景 | Emoji 装饰 |
-|---|---|---|---|---|
-| **韩系亚裔** | cool clean | studio softbox | gray gradient | 🩵 🐈 |
-| **日杂 / 樱花妹** | warm translucent | soft daylight | off-white / wood grain bokeh | 🌸 🫧 |
-| **美式甜心** | warm saturated | golden hour | dusty pink / cream | 🎀 💖 |
-| **泰式千金** | warm cinematic | low contrast moody | dark teal / amber | 💐 🤎 |
-| **clean 通透** | cool neutral | flat lighting | pure white | 🤍 🫧 |
-| **厌世 / 演唱会烟熏** | desaturated cool | hard rim light | dark navy / black bokeh | 🔥 |
-
-## 六、Negative Prompt 通用清单（防 AI 翻车）
-
-每张图都建议加 negative prompt（部分工具如 Midjourney 用 `--no` 参数，部分工具如 SD 用独立 negative）：
-
-```
-NEGATIVE: plastic skin, over-smoothed, asymmetric eyes, extra fingers, deformed hands,
-distorted face, mutated features, harsh shadows, blown highlights, watermark, signature,
-text artifacts, ugly, blurry low-quality, anime cartoon look, doll-like, fake jewelry,
-inconsistent makeup between images
+```json
+{
+  "图片编号": "IMG-03-对比 或 上身",
+  "人物一致性指令": "使用与图 1 完全相同的模特",
+  ...完整 JSON 字段...
+}
 ```
 
-## 七、输出 3 张图提示词的完整模板（**直接复制改填**）
+---
 
+## 十、为什么默认竖向 2:3
+
+- 小红书 feed 算法对竖向比例展示面积最大，约束 1.5 倍于横向
+- GPT-image-2 / Nano Banana 2 都支持在 prompt 中指定比例（如"竖向 2:3"或"portrait 2:3"），输出会按要求生成
+- 视频笔记同理（9:16 竖屏，但封面单帧 2:3 也可）
+
+---
+
+## 十一、常见问题（GPT-image-2 / Nano Banana 2 特有）
+
+### Q：JSON 模板里用了中文，模型能理解吗？
+
+A：**两个模型对中文 JSON 字段都识别良好**。Nano Banana 2 对中文支持尤其强，因为它的多模态训练数据中文占比大。GPT-image-2 经过中文优化后，对中文长描述的处理也很稳。
+
+### Q：3 张图人物还是不一致怎么办？
+
+A：按以下优先级降级：
+1. 在每张图开头都加一句强约束："**必须与图 1 是同一位模特，完全相同的 14 项特征**"
+2. 把锁卡 14 项**完整重复粘进每张图的人物锁字段**，不要写"同图 1"省略
+3. 在图 2 / 图 3 的 prompt 末尾加一段："如果出现与图 1 不同的人物，视为失败重生成"
+4. Nano Banana 2 用户：开启"角色一致性"开关（如果界面有）
+5. 终极方案：先单独生成图 1 → 把图 1 作为**视觉参考图上传** → 再生成图 2 / 图 3
+
+### Q：能不能在一个 prompt 里直接出 3 张图？
+
+A：**Nano Banana 2 推荐这样做**（一次性多图，人物锁更稳）；**GPT-image-2 推荐分步**（单图模式更稳定）。
+
+### Q：JSON 太长，模型截断怎么办？
+
+A：可以删除以下字段不影响主结构：
+- `画质标签` ← 可省
+- `装饰叠层` ← 可省（事后 PS 加）
+- `禁止出现` ← 可精简到 5 项核心
+
+保留 5 个核心字段：`人物锁` `妆容` `灯光` `背景` `画面比例`。
+
+### Q：可以中英文混用吗？
+
+A：可以。建议**结构字段名用中文**，**色彩 / 妆容专业词用英文**（如 "shimmer" "matte" "glossy"），因为图像模型训练时英文专业词更精准。例如：
+
+```json
+"眼妆": "上扬眼线 + 冷调 silver inner-corner highlight + 深棕 matte gradient shadow + lash extensions"
 ```
-====== PERSONA LOCK CARD ======
-<引用 persona-anchor 锁卡，15 项>
-seed: <8XXXX>
-reference_strategy: Midjourney --cref --cw
-
-====== IMAGE 1 / Cover ======
-<填入图 1 模板>
---ar 2:3 --style raw --seed <SEED>
-
-====== IMAGE 2 / Detail ======
-<填入图 2 模板>
---ar 2:3 --style raw --cref <PLACEHOLDER_IMAGE_1_URL> --cw 100 --seed <SEED>
-
-====== IMAGE 3 / Before-After or Lifestyle ======
-<填入图 3 模板>
---ar 2:3 --style raw --cref <PLACEHOLDER_IMAGE_1_URL> --cw 80 --seed <SEED>
-
-====== 使用说明 ======
-1. 先生成 IMAGE 1，把它的输出 URL 复制
-2. 把 IMAGE 2 / IMAGE 3 提示词里的 <PLACEHOLDER_IMAGE_1_URL> 替换为该 URL
-3. 3 张图共用同一个 SEED，强化人物一致性
-4. 若用即梦/可灵：把 IMAGE 1 上传为参考图，IMAGE 2/3 在工具里选"参考图模式"，强度 80-100
-```
-
-## 八、出图工具特别提示
-
-### Midjourney
-- 一致性最强组合：`--cref + --cw 100 + --seed`
-- 启用 `--style raw` 减少 MJ 默认美化滤镜
-- 若 cref 不稳，加 `--sref random` 锁定艺术风格
-
-### 即梦（字节 Doubao）
-- 在"图像生成"里点击「+参考图」上传图 1
-- 参考强度建议 80-100（人物锁）
-- 风格可选"日漫 / 写实 / 摄影"等
-
-### 可灵
-- "角色一致性"选项打勾
-- 上传图 1 后在描述里强调"基于上图人物"
-
-### Stable Diffusion (ComfyUI/A1111)
-- 装 IP-Adapter + InstantID + FaceID 三件套
-- 同 seed + 同 prompt 前 30% + IP-Adapter 权重 0.8-1.0
-
-### Sora / DALL-E（GPT 内）
-- 第一张生成后，第二张说"使用上面图片里那位模特，相同的脸"
-- 详细描述 15 项特征
-- 一致性效果中等，建议导入 MJ 再处理
-
-## 九、为什么默认 2:3（小红书规范）
-
-- 1:1 方图在小红书 feed 显示为方块，封面占比小
-- 3:4 是手机竖屏标准，但小红书首页 feed 会上下裁切
-- **2:3 / 3:4** 是小红书算法推荐的最佳封面比例（占据 feed 最大视觉空间，提升点击率约 15-25%）
-- 视频笔记同理（9:16 竖屏，单帧 2:3 也可）
