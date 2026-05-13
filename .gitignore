@@ -1,0 +1,17 @@
+# 用户自带人物库（隐私，不提交）
+assets/custom-personas/*
+!assets/custom-personas/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Runtime
+*.log
+.env
