@@ -1,6 +1,9 @@
-# 用户自带人物库（隐私，不提交）
-assets/custom-personas/*
-!assets/custom-personas/.gitkeep
+# 用户自带人物库 — 只忽略图片（隐私），保留索引和文档
+assets/custom-personas/*.png
+assets/custom-personas/*.jpg
+assets/custom-personas/*.jpeg
+assets/custom-personas/*.webp
+assets/custom-personas/*.heic
 
 # OS
 .DS_Store
@@ -12,6 +15,8 @@ Thumbs.db
 *.swp
 *~
 
-# Runtime
-*.log
+# Runtime — 排除环境变量但保留 skill 自维护的签名日志
 .env
+
+# 注意：examples/used-combos.log 需要被 git 跟踪
+# 故不再写 "*.log" 通配规则
