@@ -57,20 +57,31 @@ description: 小红书化妆师笔记生成器——把"日期 / 妆容想法 / 
 
 > 这一步直接决定 3 张图能不能"看起来是同一个人"。务必认真。
 
-读 `references/persona-anchor.md` 选定锚定模式：
+**优先顺序（用户已建素颜库时强制走模式 0）**：
 
-**模式 1：用户提供参考图**
-- 用 Read 工具读图
-- 按 `persona-anchor.md` 的 15 项特征清单逐项填写
-- 输出一张「人物锁卡（Persona Lock Card）」
+**模式 0：用户素颜库 ⭐⭐⭐⭐⭐（默认 / 首选）**
+- 用户已在 `H:\【项目】\小红书0\素颜库\` 下放好 17 张素颜参考图
+- 已注册为 8 个 Persona：P-A 阿茶（标准款 / 9 张 multi-angle）/ P-B 圆圆 / P-C 朵朵 / P-D 桃桃 / P-E 蕊蕊 / P-F 莹莹 / P-G 麦麦 / P-H 黎黎
+- 读 `assets/custom-personas/library-index.md` 拿 8 个 Persona 的完整 14 项锁卡 + 风格匹配速查表
+- 按用户的"风格主线"自动选号（速查表见 library-index.md）：
+  - 韩系亚裔小猫 → P-A 阿茶 / P-E 蕊蕊
+  - 日杂樱花妹 → P-D 桃桃 / P-B 圆圆
+  - 日杂方圆脸 → P-B 圆圆 / P-F 莹莹
+  - 美式甜心 → P-D 桃桃 / P-F 莹莹
+  - 泰式千金 → **P-H 黎黎**（唯一长脸款）
+  - 厌世湿发烟熏 → P-C 朵朵 / P-H 黎黎
+  - clean 通透 → P-A 阿茶 / P-E 蕊蕊
+  - 中性 / 短发 → **P-G 麦麦**（唯一短发款）
+- 用户也可明确指定（"用 P-D" / "用桃桃"）
+- 把对应 Persona 的参考图绝对路径上传给 Nano Banana 2 / GPT-image-2 作 cref
 
-**模式 2：用户没提供图**
-- 从 `references/persona-anchor.md` 的"内置人物库"5 个虚拟人物中选 1 个（或让用户选）
-- 默认推荐：根据"风格主线"匹配最合适的（韩系→单眼皮淡颜25 / 日杂→方圆脸22 / 千金→长脸28）
+**模式 1：用户运行时临时上传新参考图（不在素颜库内）**
+- Read 该图 → 提取 14 项 → 临时锁卡（不入库）
+- 引导用户："要不要把这张加进素颜库长期复用？我帮你建索引"
 
-**模式 3：用户已有自己的"模特库"**
-- 用户在 `assets/custom-personas/` 下放图，并在请求里提及"用我的 X 号模特"
-- 按用户描述的特征 + 图片做锚
+**模式 2：用户没参考图也不用素颜库（兜底）**
+- 从 `references/persona-anchor.md` 内置 P-001 ~ P-005 虚拟人物选 1 个
+- 仅在用户明确说"不要用素颜库" / "新风格库里没合适" 时才走这条
 
 无论哪种模式，最终输出都是一张统一格式的「人物锁卡」，3 张图共享。
 
@@ -165,7 +176,8 @@ description: 小红书化妆师笔记生成器——把"日期 / 妆容想法 / 
 | 文件 | 何时读 |
 |---|---|
 | `references/style-dna.md` | 第 2 步——主题分类时；不确定风格主线时也要读 |
-| `references/persona-anchor.md` | 第 3 步——建立人物锚时**必读**；含内置 5 人物库 |
+| `assets/custom-personas/library-index.md` | 第 3 步前置——**用户素颜库 8 个 Persona 完整锁卡 + 风格匹配速查表（默认首选）** |
+| `references/persona-anchor.md` | 第 3 步——建立人物锚时**必读**；含 4 种使用模式 + 内置 5 兜底人物 |
 | `references/title-formulas.md` | 第 5 步——选标题公式时 |
 | `references/body-templates.md` | 第 6 步——写正文时 |
 | `references/image-prompts.md` | 第 4 步——生成 3 张图提示词时**必读**；JSON 模板 + 抽签维度速查表 |
